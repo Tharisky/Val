@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Valentine • Forever Yours</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel+Decorative:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <title>My Valentine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -13,13 +13,13 @@
             height: 100vh;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fad0c4 100%);
             color: #fff;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Great Vibes', cursive;
             position: relative;
         }
         .vignette {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.3) 100%);
+            background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.25) 100%);
             pointer-events: none;
             z-index: 1;
         }
@@ -32,57 +32,28 @@
         .major {
             flex: 3;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 5vh 6vw;
-            text-align: left;
-            overflow-y: auto;
-        }
-        .letter-container {
-            max-width: 780px;
-            background: rgba(255, 245, 235, 0.18);     /* subtle parchment tint */
-            backdrop-filter: blur(4px);
-            border-radius: 18px;
-            padding: 5vh 6vw;
-            box-shadow: 0 12px 60px rgba(139, 0, 48, 0.25);
-            border: 1px solid rgba(255, 182, 193, 0.4);
-        }
-        .letter {
-            font-size: 1.48rem;
-            line-height: 1.68;
-            color: #fffef9;
-            text-shadow: 0 1px 12px rgba(0,0,0,0.5);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 2.4s ease-out;
-        }
-        .letter.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .letter h2 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 5.8rem;
-            margin: 0 0 0.4em;
-            color: #fff;
+            padding: 40px;
             text-align: center;
-            text-shadow: 0 0 30px rgba(255, 105, 180, 0.9);
         }
-        .letter .closing {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.6rem;
-            margin-top: 2.2em;
-            text-align: right;
+        .major h1 {
+            font-size: 6.5rem;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8), 0 0 60px rgba(255, 20, 147, 0.4);
+            opacity: 0;
+            transform: scale(0.92);
+            transition: all 2.2s ease-in-out;
+            letter-spacing: 2px;
         }
-        .letter .signature {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.6rem;
-            margin-top: 0.4em;
-            text-align: right;
+        .major h1.visible {
+            opacity: 1;
+            transform: scale(1);
         }
         .minor {
-            flex: 1.15;
+            flex: 1.1;
             position: relative;
             overflow: hidden;
         }
@@ -98,7 +69,7 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transition: opacity 3s ease-in-out;
+            transition: opacity 2.8s ease-in-out;
         }
         .slide.active {
             opacity: 1;
@@ -106,81 +77,167 @@
         /* Floating hearts */
         .heart {
             position: absolute;
-            color: rgba(255, 105, 180, 0.88);
-            font-size: 2.3rem;
+            color: rgba(255, 105, 180, 0.9);
+            font-size: 2.2rem;
             pointer-events: none;
             animation: floatHeart linear infinite;
+            will-change: transform, opacity;
         }
         @keyframes floatHeart {
             0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            8%  { opacity: 0.9; }
-            92% { opacity: 0.9; }
-            100% { transform: translateY(-25vh) rotate(380deg); opacity: 0; }
+            10% { opacity: 0.9; }
+            90% { opacity: 0.9; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
         }
         /* Falling rose petals */
         .petal {
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             background: radial-gradient(circle at 30% 30%, #ff69b4, #c71585);
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            opacity: 0.75;
+            opacity: 0.7;
             pointer-events: none;
             animation: fall linear infinite;
+            will-change: transform, opacity;
         }
         @keyframes fall {
             0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0.8; }
-            100% { transform: translateY(115vh) rotate(900deg) translateX(75vw); opacity: 0; }
+            100% { transform: translateY(110vh) rotate(720deg) translateX(80vw); opacity: 0; }
         }
-        .petal:nth-child(odd)  { animation-duration: 19s; animation-delay: -4s; }
-        .petal:nth-child(even) { animation-duration: 24s; animation-delay: -9s; }
+        .petal:nth-child(odd) { animation-duration: 18s; animation-delay: -3s; }
+        .petal:nth-child(even) { animation-duration: 22s; animation-delay: -8s; }
+
+        /* Button and Modal/Card Styles */
+        #openLetterBtn {
+            margin-top: 40px;
+            padding: 14px 32px;
+            font-size: 1.4rem;
+            font-family: 'Great Vibes', cursive;
+            color: white;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.5);
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        #openLetterBtn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 35px rgba(255, 20, 147, 0.7);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.92);
+            max-width: 90%;
+            width: 620px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.4);
+            position: relative;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: #333;
+            font-size: 1.05rem;
+            line-height: 1.65;
+        }
+
+        .modal-content h2 {
+            font-size: 2.2rem;
+            margin: 0 0 24px;
+            color: #e91e63;
+            text-align: center;
+        }
+
+        .modal-content p {
+            margin: 0 0 18px;
+        }
+
+        .close {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 2.5rem;
+            color: #999;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .close:hover {
+            color: #e91e63;
+        }
     </style>
 </head>
 <body>
     <div class="vignette"></div>
-
     <!-- Floating hearts -->
-    <div class="heart" style="left:6%;  animation-duration:15s; animation-delay:0s;">❤️</div>
-    <div class="heart" style="left:17%; animation-duration:18s; animation-delay:1.5s; font-size:2.1rem;">💗</div>
-    <div class="heart" style="left:29%; animation-duration:20s; animation-delay:4s;">💞</div>
-    <div class="heart" style="left:44%; animation-duration:16s; animation-delay:2s; font-size:2.6rem;">💖</div>
-    <div class="heart" style="right:10%; animation-duration:21s; animation-delay:3s;">💕</div>
-    <div class="heart" style="right:21%; animation-duration:17s; animation-delay:6s; font-size:2.0rem;">❤️</div>
-
+    <div class="heart" style="left:8%; animation-duration:14s; animation-delay:0s; font-size:2.8rem;">❤️</div>
+    <div class="heart" style="left:18%; animation-duration:17s; animation-delay:2s; font-size:1.9rem;">💗</div>
+    <div class="heart" style="left:28%; animation-duration:19s; animation-delay:5s;">💞</div>
+    <div class="heart" style="left:42%; animation-duration:15s; animation-delay:1s; font-size:2.4rem;">❤️</div>
+    <div class="heart" style="right:12%; animation-duration:20s; animation-delay:4s;">💖</div>
+    <div class="heart" style="right:22%; animation-duration:16s; animation-delay:7s; font-size:2.1rem;">💕</div>
+    <div class="heart" style="right:35%; animation-duration:18s; animation-delay:3s;">❤️</div>
     <!-- Falling petals -->
-    <div class="petal" style="left:8%;  animation-duration:22s;"></div>
-    <div class="petal" style="left:19%; animation-duration:20s; animation-delay:-5s;"></div>
-    <div class="petal" style="left:31%; animation-duration:25s; animation-delay:-1s;"></div>
-    <div class="petal" style="left:43%; animation-duration:18s; animation-delay:-8s;"></div>
-    <div class="petal" style="left:57%; animation-duration:21s; animation-delay:-3s;"></div>
-    <div class="petal" style="left:72%; animation-duration:23s; animation-delay:-10s;"></div>
-    <div class="petal" style="left:85%; animation-duration:19s; animation-delay:-6s;"></div>
+    <div class="petal" style="left:5%; animation-duration:21s;"></div>
+    <div class="petal" style="left:15%; animation-duration:19s; animation-delay:-6s;"></div>
+    <div class="petal" style="left:25%; animation-duration:23s; animation-delay:-2s;"></div>
+    <div class="petal" style="left:35%; animation-duration:17s; animation-delay:-9s;"></div>
+    <div class="petal" style="left:50%; animation-duration:20s; animation-delay:-4s;"></div>
+    <div class="petal" style="left:65%; animation-duration:22s; animation-delay:-11s;"></div>
+    <div class="petal" style="left:78%; animation-duration:18s; animation-delay:-7s;"></div>
+    <div class="petal" style="left:90%; animation-duration:24s; animation-delay:-5s;"></div>
 
     <section class="hero">
         <div class="major">
-            <div class="letter-container">
-                <div class="letter" id="letter">
-                    <h2>My Dearest Sunshine,</h2>
-                    <p>Every February 14th the world tries to celebrate love, but for me, love stopped being a day on the calendar the moment you walked into my life in 2021. Since then, every single day has felt like Valentine’s Day wrapped in your warmth.</p>
-                    <p>I still remember the exact feeling when I first realized you weren’t just someone passing through—you were the light I didn’t know I’d been searching for. You became my Sunshine, and you’ve never stopped shining. Not through the quiet mornings, the loud laughter, the hard days, or the nights we stayed up talking until the sky turned pink. You light up every corner of me.</p>
-                    <p>I love the way your eyes soften when you look at me—like I’m the safest place you know. I love how your hand fits perfectly in mine, how your laugh starts in your chest and spills out like music. I love the little crease that appears between your brows when you’re thinking hard, and the way your body instinctively leans into me when we’re close.</p>
-                    <p>And God… I love the way you feel against me. The slow heat that builds when my lips brush your neck, the way your breath catches when my hands find the small of your back, pulling you closer until there’s no space left between us. Even now, after all these years, one look from you can set my pulse racing, reminding me how desperately I still crave every inch of you—your skin, your sighs, the way you arch just a little when I kiss that spot right below your ear.</p>
-                    <p>We’ve built something real, something lasting. Through every season we’ve walked together, you’ve shown me what forever actually looks like. And soon—very soon—I get to stand in front of the world and promise you the rest of my days. I can’t wait to call you my wife, to wake up to you every morning, to build a home filled with our laughter, our dreams, and yes… those quiet nights where words aren’t needed and our bodies say everything.</p>
-                    <p>Until our wedding day (and every day after), know this: you are my heart’s home, my greatest joy, my deepest desire. I love you more than yesterday, and somehow less than tomorrow—because every day with you just keeps making the love grow bigger.</p>
-                    <p>Happy Valentine’s Day, my Sunshine. You’re the best thing that’s ever happened to me, and I’m counting down the moments until I can hold you as your husband.</p>
-                    <div class="closing">Forever yours, in this life and every one after,</div>
-                    <div class="signature">Akinade Bidemi John</div>
-                </div>
-            </div>
+            <h1 id="message"></h1>
+            <button id="openLetterBtn">From me to You</button>
         </div>
-
         <div class="minor">
             <div class="slideshow" id="slideshow"></div>
         </div>
     </section>
 
+    <!-- Updated Letter Modal / Card -->
+    <div id="letterModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <div class="letter-body">
+                <h2>My Dearest Sunshine,</h2>
+                <p>Every February 14th the world tries to celebrate love, but for me, love stopped being a day on the calendar the moment you walked into my life in 2021. Since then, every single day has felt like Valentine’s Day wrapped in your warmth.</p>
+                <p>I still remember the exact feeling when I first realized you weren’t just someone passing through—you were the light I didn’t know I’d been searching for. You became my Sunshine, and you’ve never stopped shining. Not through the quiet mornings, the loud laughter, the hard days, or the nights we stayed up talking until the sky turned pink. You light up every corner of me.</p>
+                <p>I love the way your eyes soften when you look at me—like I’m the safest place you know. I love how your hand fits perfectly in mine, how your laugh starts in your chest and spills out like music. I love the little crease that appears between your brows when you’re thinking hard, and the way your body instinctively leans into me when we’re close.</p>
+                <p>And God… I love the way you feel against me. The slow heat that builds when my lips brush your neck, the way your breath catches when my hands find the small of your back, pulling you closer until there’s no space left between us. Even now, after all these years, one look from you can set my pulse racing, reminding me how desperately I still crave every inch of you—your skin, your sighs, the way you arch just a little when I kiss that spot right below your ear.</p>
+                <p>We’ve built something real, something lasting. Through every season we’ve walked together, you’ve shown me what forever actually looks like. And soon—very soon—I get to stand in front of the world and promise you the rest of my days. I can’t wait to call you my wife, to wake up to you every morning, to build a home filled with our laughter, our dreams, and yes… those quiet nights where words aren’t needed and our bodies say everything.</p>
+                <p>Until our wedding day (and every day after), know this: you are my heart’s home, my greatest joy, my deepest desire. I love you more than yesterday, and somehow less than tomorrow—because every day with you just keeps making the love grow bigger.</p>
+                <p>Happy Valentine’s Day, my Sunshine. You’re the best thing that’s ever happened to me, and I’m counting down the moments until I can hold you as your husband.</p>
+                <p>Forever yours, in this life and every one after,<br>
+                Akinade bidemi john</p>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Your photos — update paths/names if needed
+        const messages = [
+            "My love",
+            "I love you",
+            "Thank you",
+            "Would you be my valentine?"
+        ];
         const images = [
             "/P1.JPG",
             "/P2.jpg",
@@ -191,6 +248,8 @@
             "P7.jpg",
             "P8.JPG"
         ];
+        let msgIndex = 0;
+        const messageEl = document.getElementById('message');
 
         // Create slides
         const slideshowEl = document.getElementById('slideshow');
@@ -201,8 +260,16 @@
             if (i === 0) div.classList.add('active');
             slideshowEl.appendChild(div);
         });
-
         const slides = document.querySelectorAll('.slide');
+
+        function showNextMessage() {
+            messageEl.classList.remove('visible');
+            setTimeout(() => {
+                msgIndex = (msgIndex + 1) % messages.length;
+                messageEl.textContent = messages[msgIndex];
+                messageEl.classList.add('visible');
+            }, 2200);
+        }
 
         function showNextImage() {
             const current = document.querySelector('.slide.active');
@@ -212,13 +279,32 @@
             next.classList.add('active');
         }
 
-        // Reveal letter gently
-        setTimeout(() => {
-            document.getElementById('letter').classList.add('visible');
-        }, 600);
+        // Initial setup
+        messageEl.textContent = messages[0];
+        setTimeout(() => messageEl.classList.add('visible'), 300);
 
-        // Change photos slowly
-        setInterval(showNextImage, 9000);
+        // Timing
+        setInterval(showNextMessage, 6500);
+        setInterval(showNextImage, 8000);
+
+        // Modal functionality
+        const modal = document.getElementById('letterModal');
+        const btn = document.getElementById('openLetterBtn');
+        const span = document.getElementById('closeModal');
+
+        btn.onclick = function() {
+            modal.style.display = "flex";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>
