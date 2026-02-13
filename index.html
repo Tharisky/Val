@@ -3,136 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine Hero</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <title>My Valentine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background: linear-gradient(to bottom right, #ff69b4, #ff1493); /* Pink to deep pink */
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fad0c4 100%);
             color: #fff;
             font-family: 'Great Vibes', cursive;
+            position: relative;
         }
+
+        .vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.25) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
         .hero {
             display: flex;
             height: 100vh;
-            align-items: center;
-            justify-content: center;
+            position: relative;
+            z-index: 2;
         }
+
         .major {
             flex: 3;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 40px;
             text-align: center;
         }
+
         .major h1 {
-            font-size: 5em;
+            font-size: 6.5rem;
+            margin: 0;
             color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            opacity: 1;
-            transition: opacity 1s ease-in-out;
-        }
-        .major h1.fade {
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8), 0 0 60px rgba(255, 20, 147, 0.4);
             opacity: 0;
+            transform: scale(0.92);
+            transition: all 2.2s ease-in-out;
+            letter-spacing: 2px;
         }
+
+        .major h1.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
         .minor {
-            flex: 1;
-            height: 100%;
+            flex: 1.1;
+            position: relative;
             overflow: hidden;
         }
-        .minor img {
+
+        .slideshow {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            opacity: 1;
-            transition: opacity 1s ease-in-out;
         }
-        .minor img.fade {
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
             opacity: 0;
+            transition: opacity 2.8s ease-in-out;
         }
-        /* Heart animations for Valentine feel */
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
+
+        .slide.active {
+            opacity: 1;
         }
+
+        /* Floating hearts */
         .heart {
             position: absolute;
-            color: #ff0000;
-            font-size: 2em;
-            animation: float 3s infinite ease-in-out;
+            color: rgba(255, 105, 180, 0.9);
+            font-size: 2.2rem;
+            pointer-events: none;
+            animation: floatHeart linear infinite;
+            will-change: transform, opacity;
         }
-        .heart:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-        .heart:nth-child(2) { left: 20%; top: 50%; animation-delay: 1s; }
-        .heart:nth-child(3) { left: 30%; top: 80%; animation-delay: 2s; }
-        .heart:nth-child(4) { right: 10%; top: 30%; animation-delay: 0.5s; }
-        /* Add more if needed */
+
+        @keyframes floatHeart {
+            0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10%  { opacity: 0.9; }
+            90%  { opacity: 0.9; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Falling rose petals */
+        .petal {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: radial-gradient(circle at 30% 30%, #ff69b4, #c71585);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            opacity: 0.7;
+            pointer-events: none;
+            animation: fall linear infinite;
+            will-change: transform, opacity;
+        }
+
+        @keyframes fall {
+            0%   { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(720deg) translateX(80vw); opacity: 0; }
+        }
+
+        .petal:nth-child(odd)  { animation-duration: 18s; animation-delay: -3s; }
+        .petal:nth-child(even) { animation-duration: 22s; animation-delay: -8s; }
     </style>
 </head>
 <body>
+
+    <div class="vignette"></div>
+
+    <!-- Floating hearts (more of them, varied) -->
+    <div class="heart" style="left:8%; animation-duration:14s; animation-delay:0s; font-size:2.8rem;">❤️</div>
+    <div class="heart" style="left:18%; animation-duration:17s; animation-delay:2s; font-size:1.9rem;">💗</div>
+    <div class="heart" style="left:28%; animation-duration:19s; animation-delay:5s;">💞</div>
+    <div class="heart" style="left:42%; animation-duration:15s; animation-delay:1s; font-size:2.4rem;">❤️</div>
+    <div class="heart" style="right:12%; animation-duration:20s; animation-delay:4s;">💖</div>
+    <div class="heart" style="right:22%; animation-duration:16s; animation-delay:7s; font-size:2.1rem;">💕</div>
+    <div class="heart" style="right:35%; animation-duration:18s; animation-delay:3s;">❤️</div>
+
+    <!-- Falling petals -->
+    <div class="petal" style="left:5%; animation-duration:21s;"></div>
+    <div class="petal" style="left:15%; animation-duration:19s; animation-delay:-6s;"></div>
+    <div class="petal" style="left:25%; animation-duration:23s; animation-delay:-2s;"></div>
+    <div class="petal" style="left:35%; animation-duration:17s; animation-delay:-9s;"></div>
+    <div class="petal" style="left:50%; animation-duration:20s; animation-delay:-4s;"></div>
+    <div class="petal" style="left:65%; animation-duration:22s; animation-delay:-11s;"></div>
+    <div class="petal" style="left:78%; animation-duration:18s; animation-delay:-7s;"></div>
+    <div class="petal" style="left:90%; animation-duration:24s; animation-delay:-5s;"></div>
+
     <section class="hero">
         <div class="major">
             <h1 id="message"></h1>
         </div>
+
         <div class="minor">
-            <img id="slideshow" src="" alt="Valentine Image">
+            <div class="slideshow" id="slideshow"></div>
         </div>
     </section>
-    <!-- Floating hearts -->
-    <div class="heart">❤️</div>
-    <div class="heart">❤️</div>
-    <div class="heart">❤️</div>
-    <div class="heart">❤️</div>
 
     <script>
-        const messages = ["My love", "I love you", "Thank you", "Would you be my valentine?"];
+        const messages = [
+            "My love",
+            "I love you",
+            "Thank you",
+            "Would you be my valentine?"
+        ];
+
         const images = [
-            "https://thumbs.dreamstime.com/b/valentine-s-day-special-romantic-design-heart-shaped-tree-couple-silhouette-themed-illustration-featuring-lush-green-351060583.jpg",
-            "https://thumbs.dreamstime.com/b/romantic-valentine-s-day-illustration-couple-roses-elegant-love-themed-artwork-featuring-couple-red-blue-355490595.jpg",
-            "https://thumbs.dreamstime.com/b/intricate-paper-cut-out-depicting-couple-s-silhouettes-heart-shaped-floral-frame-symbolizing-love-romance-366075925.jpg",
-            "https://thumbs.dreamstime.com/b/valentine-s-day-special-romantic-design-heart-shaped-tree-couple-silhouette-themed-illustration-featuring-lush-green-351060419.jpg",
-            "https://thumbs.dreamstime.com/b/romantic-valentine-s-day-illustration-couple-roses-elegant-love-themed-artwork-featuring-couple-red-blue-355490700.jpg",
-            "https://m.media-amazon.com/images/I/71gAUKdApAL._AC_UF894,1000_QL80_.jpg",
-            "https://m.media-amazon.com/images/I/71X5V7HiP9L._AC_UF894,1000_QL80_.jpg",
-            "https://thumbs.dreamstime.com/b/valentine-s-day-special-romantic-design-heart-shaped-tree-couple-silhouette-themed-illustration-featuring-lush-green-351060583.jpg" // Duplicate for 8th
+            "https://thumbs.dreamstime.com/b/romantic-couple-dances-surrounded-floating-hearts-romantic-couple-dances-surrounded-floating-hearts-354409673.jpg",
+            "https://thumbs.dreamstime.com/b/romantic-silhouette-couple-holding-hands-surrounded-floating-hearts-ideal-valentine-s-day-cards-event-invitations-349671158.jpg",
+            "https://thumbs.dreamstime.com/b/valentine-romantic-atmosphere-heart-shaped-moon-silhouette-couple-love-holding-hands-47317094.jpg",
+            "https://thumbs.dreamstime.com/b/silhouette-loving-couple-embracing-sunset-surrounded-floating-hearts-snowy-sky-perfect-valentine-s-day-352846872.jpg",
+            "https://thumbs.dreamstime.com/b/red-rose-petals-scattered-soft-pink-background-romantic-celebration-elegant-arrangement-fresh-falling-surface-ideal-429497441.jpg",
+            "https://thumbs.dreamstime.com/b/soft-pink-rose-petals-sparkling-lavender-glitter-background-romantic-valentine-s-day-design-dreamy-high-key-featuring-420591246.jpg",
+            "https://thumbs.dreamstime.com/b/romantic-valentine-day-roses-love-letter-vibrant-red-elegant-envelope-scattered-rose-petals-dark-wooden-table-302188061.jpg",
+            "https://pixnio.com/free-images/2026/01/20/2026-01-20-05-51-54-1344x896.jpeg"
         ];
 
         let msgIndex = 0;
-        let imgIndex = 0;
-
         const messageEl = document.getElementById('message');
-        const slideshowEl = document.getElementById('slideshow');
 
-        function changeMessage() {
-            messageEl.classList.add('fade');
+        // Create slides
+        const slideshowEl = document.getElementById('slideshow');
+        images.forEach((src, i) => {
+            const div = document.createElement('div');
+            div.className = 'slide';
+            div.style.backgroundImage = `url(${src})`;
+            if (i === 0) div.classList.add('active');
+            slideshowEl.appendChild(div);
+        });
+
+        const slides = document.querySelectorAll('.slide');
+
+        function showNextMessage() {
+            messageEl.classList.remove('visible');
             setTimeout(() => {
                 msgIndex = (msgIndex + 1) % messages.length;
                 messageEl.textContent = messages[msgIndex];
-                messageEl.classList.remove('fade');
-            }, 1000);
+                messageEl.classList.add('visible');
+            }, 2200);
         }
 
-        function changeImage() {
-            slideshowEl.classList.add('fade');
-            setTimeout(() => {
-                imgIndex = (imgIndex + 1) % images.length;
-                slideshowEl.src = images[imgIndex];
-                slideshowEl.classList.remove('fade');
-            }, 1000);
+        function showNextImage() {
+            const current = document.querySelector('.slide.active');
+            const nextIndex = (Array.from(slides).indexOf(current) + 1) % slides.length;
+            const next = slides[nextIndex];
+
+            current.classList.remove('active');
+            next.classList.add('active');
         }
 
-        // Initial set
+        // Initial setup
         messageEl.textContent = messages[0];
-        slideshowEl.src = images[0];
+        setTimeout(() => messageEl.classList.add('visible'), 300);
 
-        // Change message every 4 seconds
-        setInterval(changeMessage, 4000);
-
-        // Change image every 5 seconds
-        setInterval(changeImage, 5000);
+        // Timing: slow and dreamy
+        setInterval(showNextMessage, 6500);
+        setInterval(showNextImage, 8000);
     </script>
 </body>
 </html>
