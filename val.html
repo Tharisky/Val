@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Hero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom right, #ff69b4, #ff1493); /* Pink to deep pink */
+            color: #fff;
+            font-family: 'Great Vibes', cursive;
+        }
+        .hero {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+        .major {
+            flex: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        .major h1 {
+            font-size: 5em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+        .major h1.fade {
+            opacity: 0;
+        }
+        .minor {
+            flex: 1;
+            height: 100%;
+            overflow: hidden;
+        }
+        .minor img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+        .minor img.fade {
+            opacity: 0;
+        }
+        /* Heart animations for Valentine feel */
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+        .heart {
+            position: absolute;
+            color: #ff0000;
+            font-size: 2em;
+            animation: float 3s infinite ease-in-out;
+        }
+        .heart:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 20%; top: 50%; animation-delay: 1s; }
+        .heart:nth-child(3) { left: 30%; top: 80%; animation-delay: 2s; }
+        .heart:nth-child(4) { right: 10%; top: 30%; animation-delay: 0.5s; }
+        /* Add more if needed */
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="major">
+            <h1 id="message"></h1>
+        </div>
+        <div class="minor">
+            <img id="slideshow" src="" alt="Valentine Image">
+        </div>
+    </section>
+    <!-- Floating hearts -->
+    <div class="heart">❤️</div>
+    <div class="heart">❤️</div>
+    <div class="heart">❤️</div>
+    <div class="heart">❤️</div>
+
+    <script>
+        const messages = ["My love", "I love you", "Thank you", "Would you be my valentine?"];
+        const images = [
+            "https://thumbs.dreamstime.com/b/valentine-s-day-special-romantic-design-heart-shaped-tree-couple-silhouette-themed-illustration-featuring-lush-green-351060583.jpg",
+            "https://thumbs.dreamstime.com/b/romantic-valentine-s-day-illustration-couple-roses-elegant-love-themed-artwork-featuring-couple-red-blue-355490595.jpg",
+            "https://thumbs.dreamstime.com/b/intricate-paper-cut-out-depicting-couple-s-silhouettes-heart-shaped-floral-frame-symbolizing-love-romance-366075925.jpg",
+            "https://thumbs.dreamstime.com/b/valentine-s-day-special-romantic-design-heart-shaped-tree-couple-silhouette-themed-illustration-featuring-lush-green-351060419.jpg",
+            "https://thumbs.dreamstime.com/b/romantic-valentine-s-day-illustration-couple-roses-elegant-love-themed-artwork-featuring-couple-red-blue-355490700.jpg",
+            "https://m.media-amazon.com/images/I/71gAUKdApAL._AC_UF894,1000_QL80_.jpg",
+            "https://m.media-amazon.com/images/I/71X5V7HiP9L._AC_UF894,1000_QL80_.jpg",
+            "https://thumbs.dreamstime.com/b/valentine-s-day-special-romantic-design-heart-shaped-tree-couple-silhouette-themed-illustration-featuring-lush-green-351060583.jpg" // Duplicate for 8th
+        ];
+
+        let msgIndex = 0;
+        let imgIndex = 0;
+
+        const messageEl = document.getElementById('message');
+        const slideshowEl = document.getElementById('slideshow');
+
+        function changeMessage() {
+            messageEl.classList.add('fade');
+            setTimeout(() => {
+                msgIndex = (msgIndex + 1) % messages.length;
+                messageEl.textContent = messages[msgIndex];
+                messageEl.classList.remove('fade');
+            }, 1000);
+        }
+
+        function changeImage() {
+            slideshowEl.classList.add('fade');
+            setTimeout(() => {
+                imgIndex = (imgIndex + 1) % images.length;
+                slideshowEl.src = images[imgIndex];
+                slideshowEl.classList.remove('fade');
+            }, 1000);
+        }
+
+        // Initial set
+        messageEl.textContent = messages[0];
+        slideshowEl.src = images[0];
+
+        // Change message every 4 seconds
+        setInterval(changeMessage, 4000);
+
+        // Change image every 5 seconds
+        setInterval(changeImage, 5000);
+    </script>
+</body>
+</html>
