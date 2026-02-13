@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Valentine</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet">
+    <title>My Valentine • Forever Yours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel+Decorative:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -13,141 +13,164 @@
             height: 100vh;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fad0c4 100%);
             color: #fff;
-            font-family: 'Great Vibes', cursive;
+            font-family: 'Playfair Display', serif;
             position: relative;
         }
-
         .vignette {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.25) 100%);
+            background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.3) 100%);
             pointer-events: none;
             z-index: 1;
         }
-
         .hero {
             display: flex;
             height: 100vh;
             position: relative;
             z-index: 2;
         }
-
         .major {
             flex: 3;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px;
-            text-align: center;
+            padding: 5vh 6vw;
+            text-align: left;
+            overflow-y: auto;
         }
-
-        .major h1 {
-            font-size: 6.5rem;
-            margin: 0;
-            color: #fff;
-            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8), 0 0 60px rgba(255, 20, 147, 0.4);
+        .letter-container {
+            max-width: 780px;
+            background: rgba(255, 245, 235, 0.18);     /* subtle parchment tint */
+            backdrop-filter: blur(4px);
+            border-radius: 18px;
+            padding: 5vh 6vw;
+            box-shadow: 0 12px 60px rgba(139, 0, 48, 0.25);
+            border: 1px solid rgba(255, 182, 193, 0.4);
+        }
+        .letter {
+            font-size: 1.48rem;
+            line-height: 1.68;
+            color: #fffef9;
+            text-shadow: 0 1px 12px rgba(0,0,0,0.5);
             opacity: 0;
-            transform: scale(0.92);
-            transition: all 2.2s ease-in-out;
-            letter-spacing: 2px;
+            transform: translateY(30px);
+            transition: all 2.4s ease-out;
         }
-
-        .major h1.visible {
+        .letter.visible {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
         }
-
+        .letter h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 5.8rem;
+            margin: 0 0 0.4em;
+            color: #fff;
+            text-align: center;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.9);
+        }
+        .letter .closing {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.6rem;
+            margin-top: 2.2em;
+            text-align: right;
+        }
+        .letter .signature {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.6rem;
+            margin-top: 0.4em;
+            text-align: right;
+        }
         .minor {
-            flex: 1.1;
+            flex: 1.15;
             position: relative;
             overflow: hidden;
         }
-
         .slideshow {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
         }
-
         .slide {
             position: absolute;
             inset: 0;
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transition: opacity 2.8s ease-in-out;
+            transition: opacity 3s ease-in-out;
         }
-
         .slide.active {
             opacity: 1;
         }
-
         /* Floating hearts */
         .heart {
             position: absolute;
-            color: rgba(255, 105, 180, 0.9);
-            font-size: 2.2rem;
+            color: rgba(255, 105, 180, 0.88);
+            font-size: 2.3rem;
             pointer-events: none;
             animation: floatHeart linear infinite;
-            will-change: transform, opacity;
         }
-
         @keyframes floatHeart {
-            0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            10%  { opacity: 0.9; }
-            90%  { opacity: 0.9; }
-            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            8%  { opacity: 0.9; }
+            92% { opacity: 0.9; }
+            100% { transform: translateY(-25vh) rotate(380deg); opacity: 0; }
         }
-
         /* Falling rose petals */
         .petal {
             position: absolute;
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             background: radial-gradient(circle at 30% 30%, #ff69b4, #c71585);
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            opacity: 0.7;
+            opacity: 0.75;
             pointer-events: none;
             animation: fall linear infinite;
-            will-change: transform, opacity;
         }
-
         @keyframes fall {
-            0%   { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0.8; }
-            100% { transform: translateY(110vh) rotate(720deg) translateX(80vw); opacity: 0; }
+            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0.8; }
+            100% { transform: translateY(115vh) rotate(900deg) translateX(75vw); opacity: 0; }
         }
-
-        .petal:nth-child(odd)  { animation-duration: 18s; animation-delay: -3s; }
-        .petal:nth-child(even) { animation-duration: 22s; animation-delay: -8s; }
+        .petal:nth-child(odd)  { animation-duration: 19s; animation-delay: -4s; }
+        .petal:nth-child(even) { animation-duration: 24s; animation-delay: -9s; }
     </style>
 </head>
 <body>
-
     <div class="vignette"></div>
 
-    <!-- Floating hearts -->
-    <div class="heart" style="left:8%; animation-duration:14s; animation-delay:0s; font-size:2.8rem;">❤️</div>
-    <div class="heart" style="left:18%; animation-duration:17s; animation-delay:2s; font-size:1.9rem;">💗</div>
-    <div class="heart" style="left:28%; animation-duration:19s; animation-delay:5s;">💞</div>
-    <div class="heart" style="left:42%; animation-duration:15s; animation-delay:1s; font-size:2.4rem;">❤️</div>
-    <div class="heart" style="right:12%; animation-duration:20s; animation-delay:4s;">💖</div>
-    <div class="heart" style="right:22%; animation-duration:16s; animation-delay:7s; font-size:2.1rem;">💕</div>
-    <div class="heart" style="right:35%; animation-duration:18s; animation-delay:3s;">❤️</div>
+    <!-- Floating hearts (slightly adjusted timing) -->
+    <div class="heart" style="left:6%;  animation-duration:15s; animation-delay:0s;">❤️</div>
+    <div class="heart" style="left:17%; animation-duration:18s; animation-delay:1.5s; font-size:2.1rem;">💗</div>
+    <div class="heart" style="left:29%; animation-duration:20s; animation-delay:4s;">💞</div>
+    <div class="heart" style="left:44%; animation-duration:16s; animation-delay:2s; font-size:2.6rem;">💖</div>
+    <div class="heart" style="right:10%; animation-duration:21s; animation-delay:3s;">💕</div>
+    <div class="heart" style="right:21%; animation-duration:17s; animation-delay:6s; font-size:2.0rem;">❤️</div>
 
     <!-- Falling petals -->
-    <div class="petal" style="left:5%; animation-duration:21s;"></div>
-    <div class="petal" style="left:15%; animation-duration:19s; animation-delay:-6s;"></div>
-    <div class="petal" style="left:25%; animation-duration:23s; animation-delay:-2s;"></div>
-    <div class="petal" style="left:35%; animation-duration:17s; animation-delay:-9s;"></div>
-    <div class="petal" style="left:50%; animation-duration:20s; animation-delay:-4s;"></div>
-    <div class="petal" style="left:65%; animation-duration:22s; animation-delay:-11s;"></div>
-    <div class="petal" style="left:78%; animation-duration:18s; animation-delay:-7s;"></div>
-    <div class="petal" style="left:90%; animation-duration:24s; animation-delay:-5s;"></div>
+    <div class="petal" style="left:8%;  animation-duration:22s;"></div>
+    <div class="petal" style="left:19%; animation-duration:20s; animation-delay:-5s;"></div>
+    <div class="petal" style="left:31%; animation-duration:25s; animation-delay:-1s;"></div>
+    <div class="petal" style="left:43%; animation-duration:18s; animation-delay:-8s;"></div>
+    <div class="petal" style="left:57%; animation-duration:21s; animation-delay:-3s;"></div>
+    <div class="petal" style="left:72%; animation-duration:23s; animation-delay:-10s;"></div>
+    <div class="petal" style="left:85%; animation-duration:19s; animation-delay:-6s;"></div>
 
     <section class="hero">
         <div class="major">
-            <h1 id="message"></h1>
+            <div class="letter-container">
+                <div class="letter" id="letter">
+                    <h2>My Dearest Sunshine,</h2>
+                    <p>Happy Valentine’s Day, my love.</p>
+                    <p>I know I didn’t ask you to be my Valentine this year—not because I forgot, and not because it doesn’t matter. The truth is, you’ve been my Valentine every single day since the moment you walked into my life back in 2021. You didn’t need a special title for February 14th; you’ve held that place in my heart 365 days a year, through every season, every laugh, every quiet moment, and every challenge we’ve faced together.</p>
+                    <p>You are my Sunshine. That name isn’t just sweet words I call you—it’s who you are to me. You light up the darkest corners of my days, warm me when everything feels cold, and remind me that life is brighter and better because you’re in it. I still catch myself smiling like a fool when I think about how lucky I am that you chose me too.</p>
+                    <p>These past years have been the most beautiful chapter of my life so far. We’ve built something real—trust, memories, dreams, and a future we’re about to step into as husband and wife. Every time I look at you, I see the woman I want to wake up next to forever, the one I want to laugh with, grow old with, and love with everything I have.</p>
+                    <p>Soon we’ll stand before family and friends and promise each other “forever,” but even before that day comes, know this: my heart already made that promise years ago. You’re not just my fiancée—you’re my partner, my best friend, my home, and yes… always my Valentine.</p>
+                    <p>Thank you for loving me the way you do. Thank you for your patience, your kindness, your strength, and the way you make even ordinary moments feel magical. I love you more than words can ever capture, and I can’t wait to spend every Valentine’s Day—and every single day—for the rest of our lives showing you just how much.</p>
+                    <div class="closing">Forever yours,</div>
+                    <div class="signature">Akinade Bidemi John<br>Your future husband, who’s already the luckiest man alive because of you</div>
+                </div>
+            </div>
         </div>
 
         <div class="minor">
@@ -156,14 +179,7 @@
     </section>
 
     <script>
-        const messages = [
-            "My love",
-            "I love you",
-            "Thank you",
-            "Would you be my valentine?"
-        ];
-
-        // Updated to .png extension – photos folder
+        // Your photos (update paths if needed)
         const images = [
             "/P1.JPG",
             "/P2.jpg",
@@ -174,9 +190,6 @@
             "P7.jpg",
             "P8.JPG"
         ];
-
-        let msgIndex = 0;
-        const messageEl = document.getElementById('message');
 
         // Create slides
         const slideshowEl = document.getElementById('slideshow');
@@ -190,31 +203,21 @@
 
         const slides = document.querySelectorAll('.slide');
 
-        function showNextMessage() {
-            messageEl.classList.remove('visible');
-            setTimeout(() => {
-                msgIndex = (msgIndex + 1) % messages.length;
-                messageEl.textContent = messages[msgIndex];
-                messageEl.classList.add('visible');
-            }, 2200);
-        }
-
         function showNextImage() {
             const current = document.querySelector('.slide.active');
             const nextIndex = (Array.from(slides).indexOf(current) + 1) % slides.length;
             const next = slides[nextIndex];
-
             current.classList.remove('active');
             next.classList.add('active');
         }
 
-        // Initial setup
-        messageEl.textContent = messages[0];
-        setTimeout(() => messageEl.classList.add('visible'), 300);
+        // Reveal letter gently
+        setTimeout(() => {
+            document.getElementById('letter').classList.add('visible');
+        }, 600);
 
-        // Timing: slow and dreamy
-        setInterval(showNextMessage, 6500);
-        setInterval(showNextImage, 8000);
+        // Change photos slowly (every 9 seconds)
+        setInterval(showNextImage, 9000);
     </script>
 </body>
 </html>
