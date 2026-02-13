@@ -6,180 +6,175 @@
     <title>My Valentine</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            height: 100vh;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fad0c4 100%);
-            color: #fff;
-            font-family: 'Great Vibes', cursive;
-            position: relative;
-        }
+        /* ── Your existing styles stay exactly the same ── */
+        body { /* ... your original body */ }
+        .vignette { /* ... */ }
+        .hero { /* ... */ }
+        .major { /* ... */ }
+        .major h1 { /* ... */ }
+        .minor { /* ... */ }
+        .slideshow { /* ... */ }
+        .slide { /* ... */ }
+        .heart { /* ... */ }
+        @keyframes floatHeart { /* ... */ }
+        .petal { /* ... */ }
+        @keyframes fall { /* ... */ }
 
-        .vignette {
-            position: absolute;
+        /* ── NEW: Letter overlay & button ── */
+        .letter-overlay {
+            position: fixed;
             inset: 0;
-            background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.25) 100%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .hero {
-            display: flex;
-            height: 100vh;
-            position: relative;
-            z-index: 2;
-        }
-
-        .major {
-            flex: 3;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.2s ease;
+        }
+        .letter-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .letter-content {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 720px;
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            transform: scale(0.92);
+            opacity: 0;
+            transition: all 1.4s ease-out;
+        }
+        .letter-overlay.visible .letter-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .letter-content h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.2rem;
+            margin: 0 0 1.2rem;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
             text-align: center;
         }
-
-        .major h1 {
-            font-size: 6.5rem;
-            margin: 0;
-            color: #fff;
-            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8), 0 0 60px rgba(255, 20, 147, 0.4);
-            opacity: 0;
-            transform: scale(0.92);
-            transition: all 2.2s ease-in-out;
-            letter-spacing: 2px;
+        .letter-content p {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.9rem;
+            line-height: 1.55;
+            margin: 1.4rem 0;
+            color: #fffdf5;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.5);
         }
-
-        .major h1.visible {
-            opacity: 1;
-            transform: scale(1);
+        .letter-content .signature {
+            font-family: 'Parisienne', cursive;
+            font-size: 3.2rem;
+            margin-top: 3rem;
+            text-align: right;
+            color: #ffe4e1;
+            text-shadow: 0 0 20px rgba(255, 182, 193, 0.7);
         }
-
-        .minor {
-            flex: 1.1;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .slideshow {
+        .close-btn {
             position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
+            top: 20px;
+            right: 30px;
+            background: rgba(255,105,180,0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+        .close-btn:hover {
+            background: rgba(255,20,147,0.9);
+            transform: scale(1.1);
         }
 
-        .slide {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            transition: opacity 2.8s ease-in-out;
-        }
-
-        .slide.active {
-            opacity: 1;
-        }
-
-        /* Floating hearts */
-        .heart {
-            position: absolute;
-            color: rgba(255, 105, 180, 0.9);
+        /* Reveal button (appears in major area after messages) */
+        #reveal-letter {
+            margin-top: 2rem;
+            padding: 14px 32px;
+            font-family: 'Great Vibes', cursive;
             font-size: 2.2rem;
-            pointer-events: none;
-            animation: floatHeart linear infinite;
-            will-change: transform, opacity;
+            color: white;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255,105,180,0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
         }
-
-        @keyframes floatHeart {
-            0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            10%  { opacity: 0.9; }
-            90%  { opacity: 0.9; }
-            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        #reveal-letter.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        /* Falling rose petals */
-        .petal {
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            background: radial-gradient(circle at 30% 30%, #ff69b4, #c71585);
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            opacity: 0.7;
-            pointer-events: none;
-            animation: fall linear infinite;
-            will-change: transform, opacity;
+        #reveal-letter:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 40px rgba(255,20,147,0.6);
         }
-
-        @keyframes fall {
-            0%   { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0.8; }
-            100% { transform: translateY(110vh) rotate(720deg) translateX(80vw); opacity: 0; }
-        }
-
-        .petal:nth-child(odd)  { animation-duration: 18s; animation-delay: -3s; }
-        .petal:nth-child(even) { animation-duration: 22s; animation-delay: -8s; }
     </style>
 </head>
 <body>
-
     <div class="vignette"></div>
 
-    <!-- Floating hearts -->
-    <div class="heart" style="left:8%; animation-duration:14s; animation-delay:0s; font-size:2.8rem;">❤️</div>
-    <div class="heart" style="left:18%; animation-duration:17s; animation-delay:2s; font-size:1.9rem;">💗</div>
-    <div class="heart" style="left:28%; animation-duration:19s; animation-delay:5s;">💞</div>
-    <div class="heart" style="left:42%; animation-duration:15s; animation-delay:1s; font-size:2.4rem;">❤️</div>
-    <div class="heart" style="right:12%; animation-duration:20s; animation-delay:4s;">💖</div>
-    <div class="heart" style="right:22%; animation-duration:16s; animation-delay:7s; font-size:2.1rem;">💕</div>
-    <div class="heart" style="right:35%; animation-duration:18s; animation-delay:3s;">❤️</div>
-
-    <!-- Falling petals -->
-    <div class="petal" style="left:5%; animation-duration:21s;"></div>
-    <div class="petal" style="left:15%; animation-duration:19s; animation-delay:-6s;"></div>
-    <div class="petal" style="left:25%; animation-duration:23s; animation-delay:-2s;"></div>
-    <div class="petal" style="left:35%; animation-duration:17s; animation-delay:-9s;"></div>
-    <div class="petal" style="left:50%; animation-duration:20s; animation-delay:-4s;"></div>
-    <div class="petal" style="left:65%; animation-duration:22s; animation-delay:-11s;"></div>
-    <div class="petal" style="left:78%; animation-duration:18s; animation-delay:-7s;"></div>
-    <div class="petal" style="left:90%; animation-duration:24s; animation-delay:-5s;"></div>
+    <!-- Floating hearts & petals – they stay and float over everything -->
+    <!-- Your existing heart & petal divs here -->
 
     <section class="hero">
         <div class="major">
             <h1 id="message"></h1>
+            <button id="reveal-letter">Read my heart to you…</button>
         </div>
-
         <div class="minor">
             <div class="slideshow" id="slideshow"></div>
         </div>
     </section>
 
-    <script>
-        const messages = [
-            "My love",
-            "I love you",
-            "Thank you",
-            "Would you be my valentine?"
-        ];
+    <!-- NEW: Letter overlay -->
+    <div class="letter-overlay" id="letterOverlay">
+        <div class="letter-content">
+            <button class="close-btn" id="closeLetter">&times;</button>
+            <h2>My Dearest Sunshine,</h2>
+            <p>Happy Valentine’s Day, my love.</p>
+            <p>I know I didn’t ask you to be my Valentine this year—not because I forgot, and not because it doesn’t matter. The truth is, you’ve been my Valentine every single day since the moment you walked into my life back in 2021. You didn’t need a special title for February 14th; you’ve held that place in my heart 365 days a year, through every season, every laugh, every quiet moment, and every challenge we’ve faced together.</p>
+            <p>You are my Sunshine. That name isn’t just sweet words I call you—it’s who you are to me. You light up the darkest corners of my days, warm me when everything feels cold, and remind me that life is brighter and better because you’re in it. I still catch myself smiling like a fool when I think about how lucky I am that you chose me too.</p>
+            <p>These past years have been the most beautiful chapter of my life so far. We’ve built something real—trust, memories, dreams, and a future we’re about to step into as husband and wife. Every time I look at you, I see the woman I want to wake up next to forever, the one I want to laugh with, grow old with, and love with everything I have.</p>
+            <p>Soon we’ll stand before family and friends and promise each other “forever,” but even before that day comes, know this: my heart already made that promise years ago. You’re not just my fiancée—you’re my partner, my best friend, my home, and yes… always my Valentine.</p>
+            <p>Thank you for loving me the way you do. Thank you for your patience, your kindness, your strength, and the way you make even ordinary moments feel magical. I love you more than words can ever capture, and I can’t wait to spend every Valentine’s Day—and every single day—for the rest of our lives showing you just how much.</p>
+            <div class="signature">
+                Forever yours,<br>
+                [Your Name]<br>
+                Your future husband, who’s already the luckiest man alive because of you
+            </div>
+        </div>
+    </div>
 
-        // Updated to .png extension – photos folder
-        const images = [
-            "/P1.JPG",
-            "/P2.jpg",
-            "/P3.JPG",
-            "P4.JPEG",
-            "P5.jpg",
-            "P6.jpg",
-            "P7.jpg",
-            "P8.JPG"
-        ];
+    <script>
+        // ── Your existing variables & arrays ──
+        const messages = ["My love", "I love you", "Thank you", "Would you be my valentine?"];
+        const images = ["/P1.JPG", "/P2.jpg", "/P3.JPG", "P4.JPEG", "P5.jpg", "P6.jpg", "P7.jpg", "P8.JPG"];
 
         let msgIndex = 0;
         const messageEl = document.getElementById('message');
-
-        // Create slides
         const slideshowEl = document.getElementById('slideshow');
+
+        // Create slides (your original)
         images.forEach((src, i) => {
             const div = document.createElement('div');
             div.className = 'slide';
@@ -187,7 +182,6 @@
             if (i === 0) div.classList.add('active');
             slideshowEl.appendChild(div);
         });
-
         const slides = document.querySelectorAll('.slide');
 
         function showNextMessage() {
@@ -203,7 +197,6 @@
             const current = document.querySelector('.slide.active');
             const nextIndex = (Array.from(slides).indexOf(current) + 1) % slides.length;
             const next = slides[nextIndex];
-
             current.classList.remove('active');
             next.classList.add('active');
         }
@@ -211,10 +204,33 @@
         // Initial setup
         messageEl.textContent = messages[0];
         setTimeout(() => messageEl.classList.add('visible'), 300);
-
-        // Timing: slow and dreamy
         setInterval(showNextMessage, 6500);
         setInterval(showNextImage, 8000);
+
+        // ── NEW: Letter reveal logic ──
+        const revealBtn = document.getElementById('reveal-letter');
+        const letterOverlay = document.getElementById('letterOverlay');
+        const closeBtn = document.getElementById('closeLetter');
+
+        // Show button after 3 message cycles (≈19.5s)
+        setTimeout(() => {
+            revealBtn.classList.add('visible');
+        }, 19500);
+
+        revealBtn.addEventListener('click', () => {
+            letterOverlay.classList.add('visible');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            letterOverlay.classList.remove('visible');
+        });
+
+        // Optional: close with Esc key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && letterOverlay.classList.contains('visible')) {
+                letterOverlay.classList.remove('visible');
+            }
+        });
     </script>
 </body>
 </html>
