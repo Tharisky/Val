@@ -40,13 +40,14 @@
         }
         .major h1 {
             font-size: 6.5rem;
-            margin: 0;
+            margin: 0 0 20px;
             color: #fff;
             text-shadow: 0 0 30px rgba(255, 105, 180, 0.8), 0 0 60px rgba(255, 20, 147, 0.4);
             opacity: 0;
             transform: scale(0.92);
             transition: all 2.2s ease-in-out;
             letter-spacing: 2px;
+            line-height: 0.9;
         }
         .major h1.visible {
             opacity: 1;
@@ -74,7 +75,7 @@
         .slide.active {
             opacity: 1;
         }
-        /* Floating hearts */
+        /* Floating hearts - reduce on mobile */
         .heart {
             position: absolute;
             color: rgba(255, 105, 180, 0.9);
@@ -89,7 +90,7 @@
             90% { opacity: 0.9; }
             100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
         }
-        /* Falling rose petals */
+        /* Falling rose petals - reduce on mobile */
         .petal {
             position: absolute;
             width: 18px;
@@ -105,14 +106,12 @@
             0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0.8; }
             100% { transform: translateY(110vh) rotate(720deg) translateX(80vw); opacity: 0; }
         }
-        .petal:nth-child(odd) { animation-duration: 18s; animation-delay: -3s; }
-        .petal:nth-child(even) { animation-duration: 22s; animation-delay: -8s; }
 
-        /* Button and Modal/Card Styles */
+        /* Button and Modal */
         #openLetterBtn {
-            margin-top: 40px;
-            padding: 14px 32px;
-            font-size: 1.4rem;
+            margin-top: 30px;
+            padding: 14px 40px;
+            font-size: 1.6rem;
             font-family: 'Great Vibes', cursive;
             color: white;
             background: linear-gradient(135deg, #ff69b4, #ff1493);
@@ -122,9 +121,9 @@
             box-shadow: 0 8px 25px rgba(255, 20, 147, 0.5);
             transition: all 0.3s ease;
             z-index: 3;
+            touch-action: manipulation;
         }
-
-        #openLetterBtn:hover {
+        #openLetterBtn:hover, #openLetterBtn:active {
             transform: scale(1.08);
             box-shadow: 0 12px 35px rgba(255, 20, 147, 0.7);
         }
@@ -139,52 +138,116 @@
             justify-content: center;
             backdrop-filter: blur(4px);
         }
-
         .modal-content {
-            background: rgba(255, 255, 255, 0.92);
-            max-width: 90%;
+            background: rgba(255, 255, 255, 0.94);
+            max-width: 92%;
             width: 620px;
-            max-height: 85vh;
+            max-height: 88vh;
             overflow-y: auto;
-            border-radius: 18px;
-            padding: 32px;
+            border-radius: 20px;
+            padding: 28px;
             box-shadow: 0 10px 40px rgba(255, 105, 180, 0.4);
             position: relative;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            color: #333;
+            font-family: system-ui, sans-serif;
+            color: #222;
             font-size: 1.05rem;
-            line-height: 1.65;
+            line-height: 1.7;
         }
-
         .modal-content h2 {
-            font-size: 2.2rem;
-            margin: 0 0 24px;
+            font-size: 2.1rem;
+            margin: 0 0 20px;
             color: #e91e63;
             text-align: center;
         }
-
         .modal-content p {
-            margin: 0 0 18px;
+            margin: 0 0 16px;
         }
-
         .close {
             position: absolute;
-            top: 12px;
-            right: 20px;
-            font-size: 2.5rem;
-            color: #999;
+            top: 10px;
+            right: 18px;
+            font-size: 2.8rem;
+            color: #888;
             cursor: pointer;
             font-weight: bold;
         }
-
         .close:hover {
             color: #e91e63;
+        }
+
+        /* ==============================================
+           RESPONSIVE MEDIA QUERIES
+        ============================================== */
+
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+            }
+            .major {
+                flex: none;
+                padding: 30px 20px;
+                order: 1;
+            }
+            .minor {
+                flex: none;
+                height: 50vh; /* or 60vh depending on preference */
+                width: 100%;
+                order: 2;
+            }
+            .major h1 {
+                font-size: 4.5rem; /* smaller on mobile */
+            }
+            #openLetterBtn {
+                margin-top: 20px;
+                padding: 12px 36px;
+                font-size: 1.5rem;
+            }
+            /* Fewer hearts & petals on mobile for performance */
+            .heart, .petal {
+                display: none; /* or reduce number via JS if you want some */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .major h1 {
+                font-size: 3.8rem;
+            }
+            .major {
+                padding: 20px 15px;
+            }
+            .minor {
+                height: 45vh;
+            }
+            .modal-content {
+                max-width: 96%;
+                padding: 20px;
+                font-size: 1rem;
+            }
+            .modal-content h2 {
+                font-size: 1.8rem;
+            }
+            .close {
+                font-size: 2.5rem;
+                top: 8px;
+                right: 12px;
+            }
+        }
+
+        /* Ensure slideshow fills nicely */
+        @media (max-width: 900px) {
+            .slide {
+                background-size: cover;
+                background-position: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="vignette"></div>
-    <!-- Floating hearts -->
+
+    <!-- Floating hearts (hidden on mobile via media query) -->
     <div class="heart" style="left:8%; animation-duration:14s; animation-delay:0s; font-size:2.8rem;">❤️</div>
     <div class="heart" style="left:18%; animation-duration:17s; animation-delay:2s; font-size:1.9rem;">💗</div>
     <div class="heart" style="left:28%; animation-duration:19s; animation-delay:5s;">💞</div>
@@ -192,7 +255,8 @@
     <div class="heart" style="right:12%; animation-duration:20s; animation-delay:4s;">💖</div>
     <div class="heart" style="right:22%; animation-duration:16s; animation-delay:7s; font-size:2.1rem;">💕</div>
     <div class="heart" style="right:35%; animation-duration:18s; animation-delay:3s;">❤️</div>
-    <!-- Falling petals -->
+
+    <!-- Falling petals (hidden on mobile) -->
     <div class="petal" style="left:5%; animation-duration:21s;"></div>
     <div class="petal" style="left:15%; animation-duration:19s; animation-delay:-6s;"></div>
     <div class="petal" style="left:25%; animation-duration:23s; animation-delay:-2s;"></div>
@@ -212,10 +276,10 @@
         </div>
     </section>
 
-    <!-- Updated Letter Modal / Card -->
+    <!-- Letter Modal -->
     <div id="letterModal" class="modal">
         <div class="modal-content">
-            <span id="closeModal" class="close">&times;</span>
+            <span id="closeModal" class="close">×</span>
             <div class="letter-body">
                 <h2>My Dearest Sunshine,</h2>
                 <p>Every February 14th the world tries to celebrate love, but for me, love stopped being a day on the calendar the moment you walked into my life in 2021. Since then, every single day has felt like Valentine’s Day wrapped in your warmth.</p>
@@ -225,8 +289,7 @@
                 <p>We’ve built something real, something lasting. Through every season we’ve walked together, you’ve shown me what forever actually looks like. And soon—very soon—I get to stand in front of the world and promise you the rest of my days. I can’t wait to call you my wife, to wake up to you every morning, to build a home filled with our laughter, our dreams, and yes… those quiet nights where words aren’t needed and our bodies say everything.</p>
                 <p>Until our wedding day (and every day after), know this: you are my heart’s home, my greatest joy, my deepest desire. I love you more than yesterday, and somehow less than tomorrow—because every day with you just keeps making the love grow bigger.</p>
                 <p>Happy Valentine’s Day, my Sunshine. You’re the best thing that’s ever happened to me, and I’m counting down the moments until I can hold you as your husband.</p>
-                <p>Forever yours, in this life and every one after,<br>
-                Akinade bidemi john</p>
+                <p>Forever yours, in this life and every one after,<br>Akinade bidemi john</p>
             </div>
         </div>
     </div>
@@ -234,9 +297,9 @@
     <script>
         const messages = [
             "My love",
-            "My Sunshine",
+            "I love you",
             "Thank you",
-            "I love you"
+            "Would you be my valentine?"
         ];
         const images = [
             "/P1.JPG",
@@ -251,7 +314,6 @@
         let msgIndex = 0;
         const messageEl = document.getElementById('message');
 
-        // Create slides
         const slideshowEl = document.getElementById('slideshow');
         images.forEach((src, i) => {
             const div = document.createElement('div');
@@ -279,31 +341,21 @@
             next.classList.add('active');
         }
 
-        // Initial setup
         messageEl.textContent = messages[0];
         setTimeout(() => messageEl.classList.add('visible'), 300);
 
-        // Timing
         setInterval(showNextMessage, 6500);
         setInterval(showNextImage, 8000);
 
-        // Modal functionality
+        // Modal
         const modal = document.getElementById('letterModal');
         const btn = document.getElementById('openLetterBtn');
         const span = document.getElementById('closeModal');
 
-        btn.onclick = function() {
-            modal.style.display = "flex";
-        }
-
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
+        btn.onclick = () => { modal.style.display = "flex"; }
+        span.onclick = () => { modal.style.display = "none"; }
+        window.onclick = (event) => {
+            if (event.target === modal) modal.style.display = "none";
         }
     </script>
 </body>
